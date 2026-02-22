@@ -26,4 +26,8 @@
 	  <ProjectReference Include="..\PaymentsAPI.Domain\PaymentsAPI.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
+	</ItemGroup>
+
 </Project>
