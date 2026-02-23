@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace PaymentsAPI.Data.Repositories
+namespace PaymentsAPI.Data
 {
     internal class ContextFactory : IDesignTimeDbContextFactory<PaymentDbContext>
     {

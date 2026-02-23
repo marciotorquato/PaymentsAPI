@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsAPI.Data", "src\Pay
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsAPI.IoC", "src\PaymentsAPI.IoC\PaymentsAPI.IoC.csproj", "{E3849EF8-F78D-4E5A-9E93-804933D42C89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsAPI.Messaging", "src\PaymentsAPI.Messaging\PaymentsAPI.Messaging.csproj", "{7EB11DBE-F78A-41B9-B886-53343488345B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{E3849EF8-F78D-4E5A-9E93-804933D42C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3849EF8-F78D-4E5A-9E93-804933D42C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3849EF8-F78D-4E5A-9E93-804933D42C89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EB11DBE-F78A-41B9-B886-53343488345B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EB11DBE-F78A-41B9-B886-53343488345B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EB11DBE-F78A-41B9-B886-53343488345B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EB11DBE-F78A-41B9-B886-53343488345B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{E30FDDEB-9330-52DB-2B78-C60CBACC8720} = {6A5D9BF0-1081-4066-B40F-6FF14029DB2D}
 		{C4652B55-7E30-EBF8-3341-B8863DE6890B} = {C47885F7-5937-4541-A350-124718249F4F}
 		{E3849EF8-F78D-4E5A-9E93-804933D42C89} = {944A82C0-9ED3-41FF-BF87-9C03FE406566}
+		{7EB11DBE-F78A-41B9-B886-53343488345B} = {C47885F7-5937-4541-A350-124718249F4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AEA85907-67E1-40F0-B4DE-4568313B7895}

@@ -1,19 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PaymentsAPI.Data.Repositories;
+using PaymentsAPI.Application.Consumers;
+using PaymentsAPI.Data;
+using PaymentsAPI.Domain.Interfaces;
+using PaymentsAPI.Messaging;
 
 namespace PaymentsAPI.IoC;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
-
         services.AddDbContext<PaymentDbContext>(options =>
         {
             options.UseSqlServer(
-                configuration.GetConnectionString("DefaultConnection"),
+                configuration.GetConnectionString("MS_PaymentAPI"),
                 sqlOptions =>
                 {
                     sqlOptions.EnableRetryOnFailure(
@@ -23,6 +27,18 @@ public static class DependencyInjection
                     sqlOptions.MigrationsAssembly(typeof(PaymentDbContext).Assembly.FullName);
                 });
         });
+
+        // ✅ Registrar RabbitMQ Initializer
+        services.AddSingleton<RabbitMQInitializer>();
+
+        // ✅ Registrar IEventPublisher (SINGLETON para manter conexão aberta)
+        services.AddSingleton<IEventPublisher, RabbitMQEventPublisher>();
+
+        // ✅ Registrar Consumer como Scoped
+        services.AddScoped<OrderPlacedConsumer>();
+
+        // ✅ Registrar Background Service
+        services.AddHostedService<RabbitMQConsumer>();
 
         return services;
     }

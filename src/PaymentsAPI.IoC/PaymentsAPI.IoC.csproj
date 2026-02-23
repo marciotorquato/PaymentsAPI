@@ -22,6 +22,7 @@
 	  <ProjectReference Include="..\PaymentsAPI.Application\PaymentsAPI.Application.csproj" />
 	  <ProjectReference Include="..\PaymentsAPI.Data\PaymentsAPI.Data.csproj" />
 	  <ProjectReference Include="..\PaymentsAPI.Domain\PaymentsAPI.Domain.csproj" />
+	  <ProjectReference Include="..\PaymentsAPI.Messaging\PaymentsAPI.Messaging.csproj" />
 	</ItemGroup>
 
 </Project>

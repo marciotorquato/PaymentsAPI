@@ -2,7 +2,7 @@
 using PaymentsAPI.Data.Configurations;
 using PaymentsAPI.Domain.Entities;
 
-namespace PaymentsAPI.Data.Repositories;
+namespace PaymentsAPI.Data;
 
 public class PaymentDbContext : DbContext
 {
