@@ -31,38 +31,56 @@ public class RabbitMQInitializer
             await using var connection = await factory.CreateConnectionAsync();
             await using var channel = await connection.CreateChannelAsync();
 
-            // Criar Exchange para PaymentProcessedEvent
-            var exchangeName = _configuration["RabbitMQ:Exchanges:PaymentProcessed"] ?? "payment-processed-exchange";
+            // ===== EXCHANGE PARA PUBLICAR PaymentProcessed =====
+            var paymentProcessedExchange = _configuration["RabbitMQ:Exchanges:PaymentProcessed"] ?? "payment-processed-exchange";
+
             await channel.ExchangeDeclareAsync(
-                exchange: exchangeName,
+                exchange: paymentProcessedExchange,
                 type: ExchangeType.Fanout,
                 durable: true,
                 autoDelete: false,
                 arguments: null
             );
 
-            // Criar Queue para PaymentProcessedEvent
-            var queueName = "payment-processed-queue";
+            // ===== FILA PARA CatalogAPI =====
+            var catalogQueue = "payment-processed-queue-catalog";
             await channel.QueueDeclareAsync(
-                queue: queueName,
+                queue: catalogQueue,
                 durable: true,
                 exclusive: false,
                 autoDelete: false,
                 arguments: null
             );
 
-            // Vincular Queue à Exchange
             await channel.QueueBindAsync(
-                queue: queueName,
-                exchange: exchangeName,
+                queue: catalogQueue,
+                exchange: paymentProcessedExchange,
+                routingKey: "",
+                arguments: null
+            );
+
+            // ===== FILA PARA NotificationsAPI =====
+            var notificationsQueue = "payment-processed-queue-notifications";
+            await channel.QueueDeclareAsync(
+                queue: notificationsQueue,
+                durable: true,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null
+            );
+
+            await channel.QueueBindAsync(
+                queue: notificationsQueue,
+                exchange: paymentProcessedExchange,
                 routingKey: "",
                 arguments: null
             );
 
             _logger.LogInformation(
-                "RabbitMQ inicializado com sucesso | Exchange: {Exchange} | Queue: {Queue}",
-                exchangeName,
-                queueName);
+                "RabbitMQ inicializado | Exchange: {Exchange} | Queues: {CatalogQueue}, {NotificationsQueue}",
+                paymentProcessedExchange,
+                catalogQueue,
+                notificationsQueue);
         }
         catch (Exception ex)
         {
