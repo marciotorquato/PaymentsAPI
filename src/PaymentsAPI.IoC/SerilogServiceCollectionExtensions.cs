@@ -31,6 +31,7 @@ public static class SerilogServiceCollectionExtensions
                 : httpContext.Response.StatusCode > 499
                     ? LogEventLevel.Error
                     : LogEventLevel.Information;
+
             options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
             {
                 diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);

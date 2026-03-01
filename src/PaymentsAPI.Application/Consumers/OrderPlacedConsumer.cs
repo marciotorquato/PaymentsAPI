@@ -13,10 +13,7 @@ public class OrderPlacedConsumer
     private readonly PaymentDbContext _context;
     private readonly IEventPublisher _eventPublisher;
 
-    public OrderPlacedConsumer(
-        ILogger<OrderPlacedConsumer> logger,
-        PaymentDbContext context,
-        IEventPublisher eventPublisher)
+    public OrderPlacedConsumer(ILogger<OrderPlacedConsumer> logger, PaymentDbContext context, IEventPublisher eventPublisher)
     {
         _logger = logger;
         _context = context;
@@ -25,8 +22,7 @@ public class OrderPlacedConsumer
 
     public async Task ProcessAsync(OrderPlacedEvent orderEvent)
     {
-        _logger.LogInformation("🎯 CONSUMER EXECUTADO | UsuarioId: {UsuarioId} | GameId: {GameId}",
-            orderEvent.UsuarioId, orderEvent.GameId);
+        _logger.LogInformation("CONSUMER EXECUTADO | UsuarioId: {UsuarioId} | GameId: {GameId}", orderEvent.UsuarioId, orderEvent.GameId);
 
         try
         {
@@ -52,7 +48,7 @@ public class OrderPlacedConsumer
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
 
-            _logger.LogInformation("✅ Pagamento criado | PaymentId: {PaymentId}", payment.Id);
+            _logger.LogInformation("Pagamento criado | PaymentId: {PaymentId}", payment.Id);
 
             var paymentProcessedEvent = new PaymentProcessedEvent
             {
@@ -66,7 +62,7 @@ public class OrderPlacedConsumer
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "❌ Erro ao processar pedido");
+            _logger.LogError(ex, "Erro ao processar pedido");
             throw;
         }
     }

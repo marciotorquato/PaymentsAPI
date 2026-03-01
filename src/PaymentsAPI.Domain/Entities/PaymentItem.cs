@@ -7,6 +7,5 @@ public class PaymentItem
     public Guid GameId { get; set; }
     public decimal Preco { get; set; }
 
-    // Navigation Property
     public virtual Payment Payment { get; set; }
 }

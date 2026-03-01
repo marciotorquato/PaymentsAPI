@@ -14,9 +14,9 @@ public static class SwaggerServiceCollectionExtensions
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Catalog API",
+                Title = "Payment API",
                 Version = "v1",
-                Description = "API para o projeto FIAP Cloud Games, gerenciando games.",
+                Description = "API para o projeto FIAP Cloud Games, gerenciando de pagamento.",
                 Contact = new OpenApiContact
                 {
                     Name = "Equipe FIAP Cloud Games",

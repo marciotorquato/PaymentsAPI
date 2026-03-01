@@ -18,11 +18,7 @@ public class PaymentDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Aplicar todas as configurações
         modelBuilder.ApplyConfiguration(new PaymentConfiguration());
         modelBuilder.ApplyConfiguration(new PaymentItemConfiguration());
-
-        // Ou aplicar todas de uma vez:
-        // modelBuilder.ApplyConfigurationsFromAssembly(typeof(PaymentConfiguration).Assembly);
     }
 }

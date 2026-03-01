@@ -10,9 +10,7 @@ namespace PaymentsAPI.IoC;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<PaymentDbContext>(options =>
         {
@@ -28,16 +26,16 @@ public static class DependencyInjection
                 });
         });
 
-        // ✅ Registrar RabbitMQ Initializer
+        // Registrar RabbitMQ Initializer
         services.AddSingleton<RabbitMQInitializer>();
 
-        // ✅ Registrar IEventPublisher (SINGLETON para manter conexão aberta)
+        // Registrar IEventPublisher
         services.AddSingleton<IEventPublisher, RabbitMQEventPublisher>();
 
-        // ✅ Registrar Consumer como Scoped
+        // Registrar Consumer
         services.AddScoped<OrderPlacedConsumer>();
 
-        // ✅ Registrar Background Service
+        // Registrar Background Service
         services.AddHostedService<RabbitMQConsumer>();
 
         return services;
