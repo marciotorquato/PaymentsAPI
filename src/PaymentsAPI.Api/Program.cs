@@ -20,6 +20,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 try
@@ -34,7 +36,20 @@ catch (Exception ex)
     throw;
 }
 
-app.UseHttpsRedirection();
+try
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<PaymentDbContext>();
+    db.Database.Migrate();
+    Log.Information("Migrations aplicadas com sucesso.");
+}
+catch(Exception ex)
+{
+    Log.Error($"Migrations Não foram aplicadas. {ex.Message}");
+    throw;
+}
+
+// app.UseHttpsRedirection(); ← removido, não funciona em container sem HTTPS
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
